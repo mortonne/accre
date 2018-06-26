@@ -56,7 +56,6 @@ for ii = 1:size(variables, 1)
     currentValue = getenv(variableName);
     newValue = variables{ii,2};
     if ~strcmp(currentValue, newValue)
-        fprintf('Setting %s to %s.\n', variableName, newValue);
         setenv(variableName, newValue);
     end
 end
@@ -81,7 +80,6 @@ jobIDs = cell(numberOfTasks, 1);
 for ii = 1:numberOfTasks
     taskLocation = environmentProperties.TaskLocations{ii};
     % Set the environment variable that defines the location of this task
-    fprintf('Setting MDCE_TASK_LOCATION to %s.\n', taskLocation);
     setenv('MDCE_TASK_LOCATION', taskLocation);
     
     % Choose a file for the output. Please note that currently, JobStorageLocation refers
