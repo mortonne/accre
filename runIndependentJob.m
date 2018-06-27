@@ -15,6 +15,8 @@ try
     % load task spec    
     in = load(fullfile(sdir, [taskLocation '.in.mat']));
     argsout = cell(1, in.nargout);
+    fprintf('Running %s with arguments:\n', func2str(in.taskfunction));
+    celldisp(in.argsin)
     diary(fullfile(sdir, [taskLocation '.diary.txt']));
     [argsout{:}] = in.taskfunction(in.argsin{:});
     diary off
