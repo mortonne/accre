@@ -106,13 +106,24 @@ for ii = 1:numberOfTasks
     
     % Now ask the cluster to run the submission command
     dctSchedulerMessage(4, '%s: Submitting job using command:\n\t%s', currFilename, commandToRun);
-    try
-        % Make the shelled out call to run the command.
-        [cmdFailed, cmdOut] = system(commandToRun);
-    catch err
-        cmdFailed = true;
-        cmdOut = err.message;
+
+    cmdFailed = true;
+    maxIter = 20;
+    n = 0;
+    while cmdFailed && n < maxIter
+        try
+            % Make the shelled out call to run the command.
+            [cmdFailed, cmdOut] = system(commandToRun);
+        catch err
+            % sometimes lose contact with the scheduler; wait 30
+            % seconds, then try again
+            cmdFailed = true;
+            cmdOut = err.message;
+            fprintf('.')
+            pause(30)
+        end
     end
+    
     if cmdFailed
         error('parallelexamples:GenericSLURM:SubmissionFailed', ...
             'Submit failed with the following message:\n%s', cmdOut);
