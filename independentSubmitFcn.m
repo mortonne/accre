@@ -102,7 +102,6 @@ for ii = 1:numberOfTasks
     dctSchedulerMessage(5, '%s: Generating command for task %i', currFilename, ii);
     commandToRun = getSubmitString(jobName, quotedLogFile, quotedScriptName, ...
         additionalSubmitArgs);
-    disp(commandToRun)
     
     % Now ask the cluster to run the submission command
     dctSchedulerMessage(4, '%s: Submitting job using command:\n\t%s', currFilename, commandToRun);
@@ -111,16 +110,15 @@ for ii = 1:numberOfTasks
     maxIter = 20;
     n = 0;
     while cmdFailed && n < maxIter
-        try
-            % Make the shelled out call to run the command.
-            [cmdFailed, cmdOut] = system(commandToRun);
-        catch err
-            % sometimes lose contact with the scheduler; wait 30
-            % seconds, then try again
-            cmdFailed = true;
-            cmdOut = err.message;
-            fprintf('.')
-            pause(30)
+        % Make the shelled out call to run the command.
+        fprintf('Running: %s\n', commandToRun);
+        [cmdStatus, cmdOut] = system(commandToRun);
+        if cmdStatus == 0
+            cmdFailed = false;
+            fprintf('Success.\n');
+        elseif n < maxIter
+            fprintf('Submit failed with the following message:\n%s', cmdOut);
+            pause(10)
         end
     end
     
