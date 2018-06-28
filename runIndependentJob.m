@@ -27,7 +27,7 @@ try
 
     % write output in standard format
     outfile = fullfile(sdir, [taskLocation '.out.mat']);
-    finishdatetime = datetime('now');
+    finishdatetime = datetime('now', 'TimeZone', 'local');
     diagnosticwarnings = {};
     erroridentifier = '';
     errormessage = '';
@@ -39,7 +39,7 @@ try
          'diagnosticwarnings', 'startdatetime', 'finishdatetime');
 catch Error
     argsout = {};
-    finishdatetime = datetime('now');
+    finishdatetime = datetime('now', 'TimeZone', 'local');
     diagnosticwarnings = {};
     erroridentifier = Error.identifier;
     errormessage = Error.message;
