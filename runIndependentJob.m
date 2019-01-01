@@ -11,7 +11,7 @@ fprintf('Storage location: %s\n', sdir);
 taskLocation = getenv('MDCE_TASK_LOCATION');
 outfile = fullfile(sdir, [taskLocation '.out.mat']);
 
-try
+%try
     % load task spec    
     in = load(fullfile(sdir, [taskLocation '.in.mat']));
     argsout = cell(1, in.nargout);
@@ -37,16 +37,16 @@ try
     save(outfile, 'argsout', 'erroridentifier', ...
          'errormessage', 'errorstruct', 'worker', ...
          'diagnosticwarnings', 'startdatetime', 'finishdatetime');
-catch Error
-    argsout = {};
-    finishdatetime = datetime('now', 'TimeZone', 'local');
-    diagnosticwarnings = {};
-    erroridentifier = Error.identifier;
-    errormessage = Error.message;
-    errorstruct = Error.stack;
-    worker = struct();
+% catch Error
+%     argsout = {};
+%     finishdatetime = datetime('now', 'TimeZone', 'local');
+%     diagnosticwarnings = {};
+%     erroridentifier = Error.identifier;
+%     errormessage = Error.message;
+%     errorstruct = Error.stack;
+%     worker = struct();
     
-    save(outfile, 'argsout', 'erroridentifier', ...
-         'errormessage', 'errorstruct', 'worker', ...
-         'diagnosticwarnings', 'startdatetime', 'finishdatetime', 'Error');
-end
+%     save(outfile, 'argsout', 'erroridentifier', ...
+%          'errormessage', 'errorstruct', 'worker', ...
+%          'diagnosticwarnings', 'startdatetime', 'finishdatetime', 'Error');
+% end
