@@ -24,9 +24,15 @@ function job = submit_job(f, n_out, f_inputs, flags, varargin)
 %  storage_dir - char
 %      Path to directory to store job data in.
 %
-%  EXAMPLE:
+%  EXAMPLES:
+%  # submit a job to calculate 2 + 3
 %  job = submit_job(@plus, 1, {2 3}, '-t 00:20:00 --mem=4gb --partition=debug')
-%  fetchOutputs(job)
+%  fetchOutputs(job) % 3
+%
+%  # submit a job to test parallel execution over 4 workers
+%  flags = '-t 00:20:00 --mem=4gb --cpus-per-task=4 --partition=debug';
+%  job = submit_job(@par_job, 1, {4}, flags)
+%  fetchOutputs(job) % time to pause for one second 40 times
 
 % options
 def.storage_dir = '~/runs';
