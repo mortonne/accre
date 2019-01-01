@@ -28,6 +28,8 @@ if ~exist(local_dir, 'dir')
     mkdir(local_dir);
 end
 cluster.JobStorageLocation = local_dir;
+fprintf('Attempting to open a cluster with %d workers...\n', n_workers)
+fprintf('Storage location: %s\n', cluster.JobStorageLocation)
 
 % create a pool with the requested number of workers. Currently
 % disabling SPMD to try to avoid problems; this may not be necessary
