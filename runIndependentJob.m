@@ -10,6 +10,8 @@ taskLocation = getenv('MDCE_TASK_LOCATION');
 outfile = fullfile(sdir, [taskLocation '.out.mat']);
 
 startdatetime = datetime('now', 'TimeZone', 'local');
+lastwarn('');
+diagnosticwarnings = {};
 
 try
     % load task spec    
@@ -28,25 +30,32 @@ try
     % write output in standard format
     outfile = fullfile(sdir, [taskLocation '.out.mat']);
     finishdatetime = datetime('now', 'TimeZone', 'local');
-    diagnosticwarnings = {};
-    erroridentifier = '';
-    errormessage = '';
-    errorstruct = '';
     worker = struct();
     
+    errorstruct = '';
+    erroridentifier = '';
+    errormessage = '';
+    
+    [lastmsg, lastid] = lastwarn;
+    warnings = struct('identifier', lastid, 'message', lastmsg, ...
+                      'stack', struct);
+
     save(outfile, 'argsout', 'erroridentifier', ...
-         'errormessage', 'errorstruct', 'worker', ...
+         'errormessage', 'errorstruct', 'warnings', 'worker', ...
          'diagnosticwarnings', 'startdatetime', 'finishdatetime');
 catch Error
     argsout = {};
     finishdatetime = datetime('now', 'TimeZone', 'local');
-    diagnosticwarnings = {};
-    erroridentifier = Error.identifier;
-    errormessage = Error.message;
     worker = struct();
     
     errorstruct = Error;
+    erroridentifier = Error.identifier;
+    errormessage = Error.message;
+    
+    [lastmsg, lastid] = lastwarn;
+    warnings = struct('identifier', lastid, 'message', lastmsg);
+    
     save(outfile, 'argsout', 'erroridentifier', ...
-         'errormessage', 'errorstruct', 'worker', ...
+         'errormessage', 'errorstruct', 'warnings', 'worker', ...
          'diagnosticwarnings', 'startdatetime', 'finishdatetime');
 end
