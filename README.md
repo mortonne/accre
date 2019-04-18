@@ -51,4 +51,4 @@ When a job is running, you can watch the progress using the tail utility in Bash
 tail -f ~/runs/Job4/Task1.log
 ```
 
-Note that it may take a long time for MATLAB to start, before your function will actually be evaluated.
+Note that on ACCRE it may take a long time for MATLAB to start on each compute node.
