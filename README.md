@@ -20,7 +20,7 @@ To submit a single job to calculate 2 + 3 on a compute node:
 job = submit_job(@plus, 1, {2 3}, '-t 00:20:00 --mem=4gb --partition=debug')
 
 % after the job has finished, get the output
-fetchOutputs(job) % 3
+fetchOutputs(job) % 5
 ```
 
 To test using a parfor loop to use multiple cores in a single job:
@@ -42,7 +42,7 @@ for i = 1:4
     createTask(job, @power, 1, {2 i});
 end
 submit(job);
-fetchOutputs(job)
+fetchOutputs(job) % cell array with 2, 4, 8, 16
 ```
 
 When a job is running, you can watch the progress using the tail utility in Bash (i.e., outside of MATLAB). For example, if the job name is Job4.1 and your JobStorateLocation is `~/runs`:
