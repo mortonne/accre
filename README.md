@@ -30,7 +30,7 @@ fetchOutputs(job) % time to pause for one second 40 times
 
 To run four independent jobs to calculate different powers of 2:
 ```matlab
-flags = '-t 00:20:00 --mem=4gb --partition=debug'
+flags = '-t 00:20:00 --mem=4gb --partition=debug';
 cluster = parallel.cluster.Generic();
 cluster.JobStorageLocation = '~/runs'; % task logs and output placed here
 cluster.IntegrationScriptsLocation = '~/matlab/accre'; % replace with local code directory
