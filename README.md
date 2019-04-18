@@ -18,7 +18,9 @@ To install, just get a copy of this project and add it to your MATLAB path.
 To submit a single job to calculate 2 + 3 on a compute node:
 ```matlab
 job = submit_job(@plus, 1, {2 3}, '-t 00:20:00 --mem=4gb --partition=debug')
- fetchOutputs(job) % 3
+
+% after the job has finished, get the output
+fetchOutputs(job) % 3
 ```
 
 To test using a parfor loop to use multiple cores in a single job:
