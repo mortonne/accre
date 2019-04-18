@@ -42,6 +42,7 @@ for i = 1:4
     createTask(job, @power, 1, {2 i});
 end
 submit(job);
+fetchOutputs(job)
 ```
 
 When a job is running, you can watch the progress using the tail utility in Bash (i.e., outside of MATLAB). For example, if the job name is Job4.1 and your JobStorateLocation is `~/runs`:
