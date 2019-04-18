@@ -1,5 +1,5 @@
 # accre
-Scripts for running MATLAB on ACCRE.
+Scripts for running MATLAB on the ACCRE cluster at Vanderbilt.
 
 Requires the MATLAB Parallel Computing Toolbox to submit jobs. Does not require the MATLAB Parallel Server.
 
