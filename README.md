@@ -43,3 +43,11 @@ for i = 1:4
 end
 submit(job);
 ```
+
+When a job is running, you can watch the progress using the tail utility in Bash (i.e., outside of MATLAB). For example, if the job name is Job4.1 and your JobStorateLocation is `~/runs`:
+
+```bash
+tail -f ~/runs/Job4/Task1.log
+```
+
+Note that it may take a long time for MATLAB to start, before your function will actually be evaluated.
